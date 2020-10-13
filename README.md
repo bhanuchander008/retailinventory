@@ -1,6 +1,6 @@
 # Retailinventory
 
-##To run this project,
+## To run this project,
   ### First we have to install requirements.txt file  by using this command (run command ** pip install -r requirements.txt **)
 ### Then we have to run command in the command prompt ( ** python app.py **)
 ### And it displays  a web page consist  of two links
