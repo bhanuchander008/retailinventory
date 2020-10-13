@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>First page</title>
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f2f2f2;
+        }
+
+        .card {
+            min-width: 300px;
+            width: 100%;
+            max-width: 500px;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="min-vh-100 d-flex justify-content-center align-items-center flex-column">
+        <div class="card shadow">
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="category">Category Id</label>
+                    <select class="custom-select" id="category">
+                        <option selected>Choose...</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4" id="details"></div>
+    </section>
+    <script>
+        const category = document.getElementById('category');
+        const details = document.getElementById('details');
+        (function () {
+            fetch('http://localhost:5000/api/category', { method: 'GET' }).then(res => res.json()).then(result => {
+                if (result) {
+                    result.data.forEach((each) => {
+                        category.innerHTML+= `<option value="${each.id}">${each.categoryTitle}</option>`;
+                    });
+                }
+            });
+            fetch('http://localhost:5000/api/viewinventory', { method: 'GET' }).then(res => res.json()).then(result => {
+                
+            });
+        })();
+        category.addEventListener('change', (e) => {
+            e.preventDefault();
+            details.innerHTML='';
+            fetch(`http://localhost:5000/api/items/${category.value}`, { method: 'GET' }).then(res => res.json()).then(result => {
+                result.data.forEach((each) => {
+                    details.innerHTML += `
+                    <div class="col-lg-4 col-md-4 col-sm-12 mb-2 col-xs-12">
+                <div class="card shadow bg-secondary text-white h-100">
+                    <div class="card-body">
+                        <div class="justify-content-between d-flex">
+                            <h4>${each.itemTitle}</h4>
+                            <p class="mb-0 text-right w-auto">${each.itemPrice}</span>
+                        </div>
+                        <p class="mb-0">${each.itemDescription}</p>
+                    </div>
+                </div>
+            </div>
+                    `;
+                });
+            });
+        })
+    </script>
+</body>
+
+</html>
