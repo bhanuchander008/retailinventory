@@ -1,4 +1,4 @@
-**r=Retailinventory
+**Retailinventory
 
 # First we have to install requirements.txt file  (run command pip install -r requirements.txt)
 # Then we have to run command ( python app.py)
