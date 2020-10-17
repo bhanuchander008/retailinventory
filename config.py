@@ -20,7 +20,7 @@ db = SQLAlchemy(app)
 
 
 app.config["SQLALCHEMY_ECHO"] = True
-app.config["SQLALCHEMY_DATABASE_URI"] = db_url
+
 app.config['SECRET_KEY'] = '3b8d7b303173189153979542'
 
 
